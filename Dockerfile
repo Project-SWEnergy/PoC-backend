@@ -13,6 +13,8 @@ RUN npm install
 # Copy all the local files to the container
 COPY . .
 
+RUN npm install --save @nestjs/swagger swagger-ui-express
+
 # Expose the port your app runs on (ensure it matches the port in your Nest.js app)
 EXPOSE 3000
 
