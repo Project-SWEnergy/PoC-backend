@@ -1,0 +1,6 @@
+{
+  "out": "docs",
+  "entryPoints": ["src"],
+  "exclude": ["**/node_modules/**/*"],
+}
+
