@@ -10,18 +10,23 @@
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
-	const options = new DocumentBuilder()
+	const config = new DocumentBuilder()
 		.setTitle('Easy Meal')
 		.setDescription('The Easy Meal API description')
 		.setVersion('0.1')
 		.build();
 
-	const document = SwaggerModule.createDocument(app, options);
+	const options: SwaggerDocumentOptions = {
+		operationIdFactory: (_: string, methodKey: string) => methodKey,
+	};
+
+
+	const document = SwaggerModule.createDocument(app, config, options);
 	SwaggerModule.setup('api', app, document);
 
 	await app.listen(3000);

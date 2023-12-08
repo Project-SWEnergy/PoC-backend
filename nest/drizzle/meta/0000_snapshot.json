@@ -1,0 +1,663 @@
+{
+  "id": "c3b1e7bc-37c6-4a50-8b9f-01eb1a1b300d",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "allergene": {
+      "name": "allergene",
+      "schema": "",
+      "columns": {
+        "id_ingrediente": {
+          "name": "id_ingrediente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "allergene": {
+          "name": "allergene",
+          "type": "allergene_enum",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "foto": {
+          "name": "foto",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "allergene_id_ingrediente_ingrediente_id_fk": {
+          "name": "allergene_id_ingrediente_ingrediente_id_fk",
+          "tableFrom": "allergene",
+          "tableTo": "ingrediente",
+          "columnsFrom": [
+            "id_ingrediente"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id_ingrediente",
+            "allergene"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "allergia": {
+      "name": "allergia",
+      "schema": "",
+      "columns": {
+        "id_utente": {
+          "name": "id_utente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "allergene": {
+          "name": "allergene",
+          "type": "allergene_enum",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "allergia_id_utente_utente_id_fk": {
+          "name": "allergia_id_utente_utente_id_fk",
+          "tableFrom": "allergia",
+          "tableTo": "utente",
+          "columnsFrom": [
+            "id_utente"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "composizione": {
+      "name": "composizione",
+      "schema": "",
+      "columns": {
+        "id_piatto": {
+          "name": "id_piatto",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_ingrediente": {
+          "name": "id_ingrediente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "composizione_id_piatto_piatto_id_fk": {
+          "name": "composizione_id_piatto_piatto_id_fk",
+          "tableFrom": "composizione",
+          "tableTo": "piatto",
+          "columnsFrom": [
+            "id_piatto"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "composizione_id_ingrediente_ingrediente_id_fk": {
+          "name": "composizione_id_ingrediente_ingrediente_id_fk",
+          "tableFrom": "composizione",
+          "tableTo": "ingrediente",
+          "columnsFrom": [
+            "id_ingrediente"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "cucina": {
+      "name": "cucina",
+      "schema": "",
+      "columns": {
+        "id_tag": {
+          "name": "id_tag",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_ristorante": {
+          "name": "id_ristorante",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "cucina_id_tag_tag_id_fk": {
+          "name": "cucina_id_tag_tag_id_fk",
+          "tableFrom": "cucina",
+          "tableTo": "tag",
+          "columnsFrom": [
+            "id_tag"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "cucina_id_ristorante_ristorante_id_fk": {
+          "name": "cucina_id_ristorante_ristorante_id_fk",
+          "tableFrom": "cucina",
+          "tableTo": "ristorante",
+          "columnsFrom": [
+            "id_ristorante"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "ingrediente": {
+      "name": "ingrediente",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descrizione": {
+          "name": "descrizione",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "foto": {
+          "name": "foto",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "menu": {
+      "name": "menu",
+      "schema": "",
+      "columns": {
+        "id_ristorante": {
+          "name": "id_ristorante",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_piatto": {
+          "name": "id_piatto",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prezzo": {
+          "name": "prezzo",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "menu_id_ristorante_ristorante_id_fk": {
+          "name": "menu_id_ristorante_ristorante_id_fk",
+          "tableFrom": "menu",
+          "tableTo": "ristorante",
+          "columnsFrom": [
+            "id_ristorante"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "menu_id_piatto_piatto_id_fk": {
+          "name": "menu_id_piatto_piatto_id_fk",
+          "tableFrom": "menu",
+          "tableTo": "piatto",
+          "columnsFrom": [
+            "id_piatto"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id_ristorante",
+            "id_piatto"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "ordinazione": {
+      "name": "ordinazione",
+      "schema": "",
+      "columns": {
+        "id_utente": {
+          "name": "id_utente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_prenotazione": {
+          "name": "id_prenotazione",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_piatto": {
+          "name": "id_piatto",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quantita": {
+          "name": "quantita",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ordinazione_id_utente_utente_id_fk": {
+          "name": "ordinazione_id_utente_utente_id_fk",
+          "tableFrom": "ordinazione",
+          "tableTo": "utente",
+          "columnsFrom": [
+            "id_utente"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "ordinazione_id_prenotazione_prenotazione_id_fk": {
+          "name": "ordinazione_id_prenotazione_prenotazione_id_fk",
+          "tableFrom": "ordinazione",
+          "tableTo": "prenotazione",
+          "columnsFrom": [
+            "id_prenotazione"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "ordinazione_id_piatto_piatto_id_fk": {
+          "name": "ordinazione_id_piatto_piatto_id_fk",
+          "tableFrom": "ordinazione",
+          "tableTo": "piatto",
+          "columnsFrom": [
+            "id_piatto"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "id": {
+          "name": "id",
+          "columns": [
+            "id_utente",
+            "id_prenotazione",
+            "id_piatto"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "piatto": {
+      "name": "piatto",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descrizione": {
+          "name": "descrizione",
+          "type": "varchar(511)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "foto": {
+          "name": "foto",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "prenotazione": {
+      "name": "prenotazione",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "data_e_ora": {
+          "name": "data_e_ora",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "numero_persone": {
+          "name": "numero_persone",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stato": {
+          "name": "stato",
+          "type": "stato_ordine_enum",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_utente": {
+          "name": "id_utente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id_ristorante": {
+          "name": "id_ristorante",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "prenotazione_id_utente_utente_id_fk": {
+          "name": "prenotazione_id_utente_utente_id_fk",
+          "tableFrom": "prenotazione",
+          "tableTo": "utente",
+          "columnsFrom": [
+            "id_utente"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "prenotazione_id_ristorante_ristorante_id_fk": {
+          "name": "prenotazione_id_ristorante_ristorante_id_fk",
+          "tableFrom": "prenotazione",
+          "tableTo": "ristorante",
+          "columnsFrom": [
+            "id_ristorante"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "ristorante": {
+      "name": "ristorante",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "orario": {
+          "name": "orario",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "descrizione": {
+          "name": "descrizione",
+          "type": "varchar(511)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "indirizzo": {
+          "name": "indirizzo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "telefono": {
+          "name": "telefono",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "website": {
+          "name": "website",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "costo": {
+          "name": "costo",
+          "type": "prize_enum",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'medio'"
+        },
+        "sedie_per_bambini": {
+          "name": "sedie_per_bambini",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "adatto_ai_disabili": {
+          "name": "adatto_ai_disabili",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "ristorante_id_utente_id_fk": {
+          "name": "ristorante_id_utente_id_fk",
+          "tableFrom": "ristorante",
+          "tableTo": "utente",
+          "columnsFrom": [
+            "id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "tag": {
+      "name": "tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "nome": {
+          "name": "nome",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "descrizione": {
+          "name": "descrizione",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "utente": {
+      "name": "utente",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "allergene_enum": {
+      "name": "allergene_enum",
+      "values": {
+        "glutine": "glutine",
+        "crostacei": "crostacei",
+        "uova": "uova",
+        "pesce": "pesce",
+        "arachidi": "arachidi",
+        "soia": "soia",
+        "latte": "latte",
+        "frutta a guscio": "frutta a guscio",
+        "sedano": "sedano",
+        "senape": "senape",
+        "sesamo": "sesamo",
+        "lupini": "lupini",
+        "molluschi": "molluschi"
+      }
+    },
+    "prize_enum": {
+      "name": "prize_enum",
+      "values": {
+        "economico": "economico",
+        "medio": "medio",
+        "costoso": "costoso"
+      }
+    },
+    "stato_ordine_enum": {
+      "name": "stato_ordine_enum",
+      "values": {
+        "da confermare": "da confermare",
+        "in attesa": "in attesa",
+        "in corso": "in corso",
+        "concluso": "concluso"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
