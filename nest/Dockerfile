@@ -12,11 +12,14 @@ RUN npm install
 
 # Copy all the local files to the container
 COPY . .
+COPY /src/db /usr/src/app/src/db
 
 RUN npm install --save @nestjs/swagger swagger-ui-express
+RUN npm install drizzle-orm pg
 
 # Expose the port your app runs on (ensure it matches the port in your Nest.js app)
 EXPOSE 3000
 
 # Define the command to start your Nest.js app
-CMD ["npm", "run", "start:dev"]
+
+CMD ["./init.sh", "&&", "npm", "run", "start:dev"]

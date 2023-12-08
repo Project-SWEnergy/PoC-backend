@@ -14,7 +14,6 @@ import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
-
 	const config = new DocumentBuilder()
 		.setTitle('Easy Meal')
 		.setDescription('The Easy Meal API description')

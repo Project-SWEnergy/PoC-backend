@@ -34,7 +34,7 @@ export const utente = pgTable("utente", {
 })
 
 export const ristorante = pgTable("ristorante", {
-	id: integer("id").primaryKey().references(() => utente.id),
+	id_ristorante: integer("id").primaryKey().references(() => utente.id),
 	nome: varchar("nome", { length: 100 }).notNull(),
 	orario: json("orario"),
 	descrizione: varchar("descrizione", { length: 511 }),
@@ -53,7 +53,7 @@ export const prenotazione = pgTable("prenotazione", {
 	stato: stato_ordine_enum("stato").notNull(),
 	id_utente: integer("id_utente").notNull().references(() => utente.id),
 	id_ristorante: integer("id_ristorante").notNull().references(() =>
-		ristorante.id),
+		ristorante.id_ristorante),
 })
 
 export const tag = pgTable("tag", {
@@ -65,7 +65,7 @@ export const tag = pgTable("tag", {
 export const cucina = pgTable("cucina", {
 	id_tag: integer("id_tag").notNull().references(() => tag.id),
 	id_ristorante: integer("id_ristorante").notNull().references(() =>
-		ristorante.id),
+		ristorante.id_ristorante),
 })
 
 export const piatto = pgTable("piatto", {
@@ -77,13 +77,12 @@ export const piatto = pgTable("piatto", {
 
 export const menu = pgTable("menu", {
 	id_ristorante: integer("id_ristorante").notNull().references(() =>
-		ristorante.id),
+		ristorante.id_ristorante),
 	id_piatto: integer("id_piatto").notNull().references(() => piatto.id),
 	prezzo: real("prezzo").notNull(),
 }, (table) => {
 	return {
-		id: primaryKey({
-			name: "id",
+		pk: primaryKey({
 			columns: [table.id_ristorante, table.id_piatto]
 		})
 	};
@@ -115,8 +114,7 @@ export const ordinazione = pgTable("ordinazione", {
 	quantita: integer("quantita").notNull(),
 }, (table) => {
 	return {
-		id: primaryKey({
-			name: "id",
+		pk: primaryKey({
 			columns: [table.id_utente, table.id_prenotazione, table.id_piatto]
 		})
 	};
@@ -129,8 +127,7 @@ export const allergene = pgTable("allergene", {
 	foto: json("foto"),
 }, (table) => {
 	return {
-		id: primaryKey({
-			name: "id",
+		pk: primaryKey({
 			columns: [table.id_ingrediente, table.allergene]
 		})
 	};
