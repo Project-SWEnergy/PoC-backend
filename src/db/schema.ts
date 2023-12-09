@@ -1,4 +1,4 @@
-import { primaryKey, real, integer, timestamp, pgTable, serial, varchar, json, pgEnum, boolean } from 'drizzle-orm/pg-core'
+import { primaryKey, real, time, integer, timestamp, pgTable, serial, varchar, json, pgEnum, boolean } from 'drizzle-orm/pg-core'
 
 export const prize_enum = pgEnum("prize_enum", [
 	'economico',
@@ -27,23 +27,40 @@ export const allergene_enum = pgEnum("allergene_enum", [
 	'molluschi',
 ])
 
+export const giorno_enum = pgEnum("giorno_enum", [
+	'lunedì',
+	'martedì',
+	'mercoledì',
+	'giovedì',
+	'venerdì',
+	'sabato',
+	'domenica',
+])
+
 export const utente = pgTable("utente", {
 	id: serial("id").primaryKey(),
-	email: varchar("email", { length: 255 }),
-	username: varchar("username", { length: 100 }),
+	email: varchar("email", { length: 255 }).unique().notNull(),
+	username: varchar("username", { length: 100 }).notNull(),
 })
 
 export const ristorante = pgTable("ristorante", {
 	id_ristorante: integer("id").primaryKey().references(() => utente.id),
 	nome: varchar("nome", { length: 100 }).notNull(),
-	orario: json("orario"),
 	descrizione: varchar("descrizione", { length: 511 }),
-	indirizzo: varchar("indirizzo", { length: 255 }).notNull(),
+	indirizzo: varchar("indirizzo", { length: 255 }).unique().notNull(),
 	telefono: varchar("telefono", { length: 10 }),
 	website: varchar("website", { length: 255 }),
 	costo: prize_enum("costo").default('medio'),
 	sedie_per_bambini: boolean("sedie_per_bambini"),
 	adatto_ai_disabili: boolean("adatto_ai_disabili"),
+})
+
+export const orario = pgTable("orario", {
+	id_ristorante: integer("id_ristorante").notNull().references(() =>
+		ristorante.id_ristorante),
+	giorno: giorno_enum("giorno").notNull(),
+	apertura: time("apertura").notNull(),
+	chiusura: time("chiusura").notNull(),
 })
 
 export const prenotazione = pgTable("prenotazione", {

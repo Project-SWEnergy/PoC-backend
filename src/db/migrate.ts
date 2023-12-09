@@ -3,12 +3,13 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 
 const pool = new Pool({
-	connectionString: process.env.DATABASE_URL,
+	connectionString: "postgresql://user:postgres@localhost:5432/testDB?schema=public",
 })
 
 const db = drizzle(pool)
 
 async function main() {
+	console.log(process.env.DATABASE_URL)
 	console.log("Migrating database...")
 	await migrate(db, { migrationsFolder: "migrations" })
 	console.log("Done!")
