@@ -21,7 +21,7 @@
     "typedoc": "typedoc --entryPointStrategy expand ./src --exclude \"src/app*.ts\" --commentStyle all",
     "migration:generate": "drizzle-kit generate:pg --schema=./src/db/schema.ts --out=migrations",
     "migration:push": "node -r esbuild-register src/db/migrate.ts",
-	"migrate": "npm run migration:generate && npm run migration:push"
+    "migrate": "npm run migration:generate && npm run migration:push"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -37,7 +37,7 @@
     "typedoc": "^0.25.4"
   },
   "devDependencies": {
-    "@nestjs/cli": "^10.0.0",
+    "@nestjs/cli": "^10.2.1",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/express": "^4.17.17",

@@ -68,9 +68,14 @@ export const prenotazione = pgTable("prenotazione", {
 	data_e_ora: timestamp("data_e_ora").notNull(),
 	numero_persone: integer("numero_persone").notNull(),
 	stato: stato_ordine_enum("stato").notNull(),
-	id_utente: integer("id_utente").notNull().references(() => utente.id),
 	id_ristorante: integer("id_ristorante").notNull().references(() =>
 		ristorante.id_ristorante),
+})
+
+export const prenotazione_utente = pgTable("prenotazione_utente", {
+	id_utente: integer("id_utente").notNull().references(() => utente.id),
+	id_prenotazione: integer("id_prenotazione").notNull().references(() =>
+		prenotazione.id),
 })
 
 export const tag = pgTable("tag", {

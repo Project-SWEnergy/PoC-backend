@@ -5,8 +5,8 @@ import { UtentiModule } from './utenti/utenti.module';
 import { RistorantiModule } from './ristoranti/ristoranti.module';
 
 @Module({
-  imports: [UtentiModule, RistorantiModule],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [UtentiModule, RistorantiModule],
+	controllers: [AppController],
+	providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
