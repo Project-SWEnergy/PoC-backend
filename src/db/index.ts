@@ -3,7 +3,7 @@ import { Client } from 'pg'
 import * as schema from './schema'
 
 const client = new Client({
-	connectionString: "postgresql://user:postgres@localhost:5432/testDB?schema=public",
+	connectionString: process.env.DATABASE_URL,
 })
 
 client.connect()

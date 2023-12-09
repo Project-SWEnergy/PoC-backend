@@ -21,4 +21,5 @@ EXPOSE 3000
 
 # Define the command to start your Nest.js app
 
-CMD ["npm", "run" "migrate", "&&", "npm", "run", "start:dev"]
+CMD ["npm", "run", "migrate"]
+CMD ["npm", "run", "start"]

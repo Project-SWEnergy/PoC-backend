@@ -3,7 +3,7 @@ import { drizzle } from 'drizzle-orm/node-postgres';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 
 const pool = new Pool({
-	connectionString: "postgresql://user:postgres@localhost:5432/testDB?schema=public",
+	connectionString: process.env.DATABASE_URL,
 })
 
 const db = drizzle(pool)
