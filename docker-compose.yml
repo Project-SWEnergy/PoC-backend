@@ -1,13 +1,17 @@
 version: '3'
 
+networks:
+  database:
+    driver: bridge
+
 services:
   db:
     image: postgres
     restart: always
     volumes: 
       - ./data/db:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
+    networks:
+      - database
     environment:
       - POSTGRES_DB=testDB
       - POSTGRES_USER=user
@@ -18,14 +22,16 @@ services:
     restart: always
     ports:
       - 8000:8080
+    networks:
+      - database
 
-        #  nest:
-        #    build: ./
-        #    ports:
-        #      - 3000:3000
-        #    depends_on:
-        #      - db
-        #    networks:
-        #      - database
-        #    environment:
-        #      - DATABASE_URL=postgresql://user:postgres@db:5432/testDB?schema=public
+  nest:
+    build: ./
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    networks:
+      - database
+    environment:
+      - DATABASE_URL=postgresql://user:postgres@db:5432/testDB?schema=public

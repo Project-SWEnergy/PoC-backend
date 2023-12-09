@@ -24,13 +24,13 @@ export class PrenotazioniController {
 		@Param('id-ristorante') _: string,
 		@Param('id-prenotazione') id_prenotazione: string,
 		@Body() updatePrenotazioniDto: UpdatePrenotazioniDto) {
-		return await this.prenotazioniService.update(id_prenotazione, updatePrenotazioniDto)
+		return await this.prenotazioniService.update(+id_prenotazione, updatePrenotazioniDto)
 	}
 
 	@Delete(':id-prenotazione')
 	async remove(
 		@Param('id-ristorante') _: string,
 		@Param('id-prenotazione') id_prenotazione: string) {
-		return await this.prenotazioniService.remove(+id)
+		return await this.prenotazioniService.remove(+id_prenotazione)
 	}
 }

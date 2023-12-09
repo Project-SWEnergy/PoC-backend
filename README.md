@@ -1,73 +1,79 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# PoC backend di Easy Meal
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Di seguito sono elencate le cose che ho svolto, le ho annotate mano a mano che
+le svolgevo.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Installazione
 
-## Description
+Il back-end qui sviluppato runna dentro un container docker, infatti è presente
+il [Dockerfile](Dockerfile). Si noti che il back-end è un programma che si
+frappone tra il front-end ed il back-end, per questo motivo per avere un
+ambiente di sviluppo adeguato è necessario avere anche il database. Per runnare
+sia il database che il backend è sufficiente:
+1. Installare docker
+2. entrare nella directory del progetto
+3. Digitare ``docker compose up`` nel terminale
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Per maggiori informazioni sull'utilizzo di Docker:
+- rimando alla documentazione ufficiale:
+  [Docker](https://docs.docker.com/guides/get-started/)
+- ho scritto qualche
+  [appunto](https://github.com/Project-SWEnergy/appunti-swe/tree/carlo/backend/docker)
 
-## Installation
+---
 
-```bash
-$ npm install
+## Documentazione
+
+Per quelli che dovranno sviluppare il front-end:
+il source code utilizza qualche decorator per documentare le API.
+Per accedere alla documentazioen di OpenAPI ci si collega al link:
+```
+http://localhost:3000/api
 ```
 
-## Running the app
+In caso di dubbi si chiede!
 
-```bash
-# development
-$ npm run start
+Per quelli che dovranno sviluppare il back-end:
+il source code utilizza anche la libreria ``typedoc``, per cui i commenti inline
+del codice in markdown sono estratti ed è creato un sito apposito per consultare
+e soprattuto cercare i vari metodi e funzioni definiti.
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## Changelog:
+- ho studiato il database di cui abbiamo bisogno: gli appunti dello studio sono 
+  presenti nel folder [database](database).
+- ho connesso la repo del backend a fl0: ogni volta che viene eseguito un push
+  nella repo PoC-backend, i file al suo interno sono deployati in un server di
+  fl0, in modo automatico.
+  Fl0 individua un dockerfile oppure un docker-compose per generare i servizi
+  del caso.
+- Ho inizializzato la repo PoC-backend con le librerie che usiamo, come ho già
+  citato:
+    - Node
+    - Nest
+    - Swagger
+    - TypeDoc
+- Ho scritto un Dockerfile per eseguire correttamente la build.
+- Ci si connette al server mediante il link:
+    [server](https://poc-backend-dev-gjeh.2.ie-1.fl0.io/api). Il link riportato
+    porta alla pagina di descrizione delle API generata automaticamente da
+    Swagger.
+- Ho connesso il backend al database che è disponibile su fl0.
+- Ho riscritto le tabelle di inizializzazione del database tramite la sintassi
+  di dizzle. Dizzle è una libreria utilizzata per interfacciarsi con il database
+  e per effettuare le query.
+- Ho definito gli endpoint per Utente
+- async che ritorna qualcosa
+- table orario (id_ristorante, weekday, apertura, chiusura)
+    vincolo > non ci possono essere orari che si sovrappongono nello stesso
+    giorno
+- a quanto pare fl0 non ha abbastanza risorse per far girare il server
+- ho creato un file docker-compose per runnare comodamente il backend: parte
+  con il comando ``docker compose up`` nella directory principale della repo
+- endpoint per la gestione delle prenotazioni
+---
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+## Todo!
+- endpoint per la gestione dell'orario del ristorante
+- endpoint per la gestione del menu del ristorante
