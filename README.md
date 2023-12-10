@@ -27,6 +27,7 @@ Per maggiori informazioni sull'utilizzo di Docker:
 Per quelli che dovranno sviluppare il front-end:
 il source code utilizza qualche decorator per documentare le API.
 Per accedere alla documentazioen di OpenAPI ci si collega al link:
+
 ```
 http://localhost:3000/api
 ```
