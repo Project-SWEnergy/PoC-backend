@@ -20,4 +20,4 @@ COPY . .
 EXPOSE 3000
 
 # Define the command to start your Nest.js app
-CMD ["npm", "run", "migrate", "&&", "npm", "run", "start"]
+CMD ["npm", "run", "start"]
