@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UpdatePrenotazioniDto } from './dto/update-prenotazioni.dto';
+import { UpdatePrenotazioniRistoranteDto } from './dto/update-prenotazioni.dto';
 import { db } from '../../db';
 import { prenotazione, ordinazione, prenotazione_utente } from '../../db/schema';
 import { eq } from 'drizzle-orm';
@@ -22,7 +22,7 @@ export class PrenotazioniService {
 			.leftJoin(prenotazione_utente, eq(prenotazione.id, prenotazione_utente.id_prenotazione))
 	}
 
-	async update(id_prenotazione: number, updatePrenotazioniDto: UpdatePrenotazioniDto) {
+	async update(id_prenotazione: number, updatePrenotazioniDto: UpdatePrenotazioniRistoranteDto) {
 		return await db.update(prenotazione)
 			.set(updatePrenotazioniDto)
 			.where(eq(prenotazione.id, id_prenotazione))

@@ -2,7 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreatePrenotazioniDto } from './create-prenotazioni.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdatePrenotazioniDto extends PartialType(CreatePrenotazioniDto) {
+export class UpdatePrenotazioniClienteDto extends PartialType(CreatePrenotazioniDto) {
 	@ApiProperty()
 	readonly data_e_ora: Date;
 	@ApiProperty()
