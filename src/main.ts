@@ -11,8 +11,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
+import { exec } from 'child_process';
 
 async function bootstrap() {
+	exec('npm run migrate', (err, stdout, stderr) => {
+		if (err) {
+			console.log(err);
+			return;
+		}
+		console.log(stdout);
+		console.log(stderr);
+	});
+
 	const app = await NestFactory.create(AppModule);
 	const config = new DocumentBuilder()
 		.setTitle('Easy Meal')
